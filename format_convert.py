@@ -27,10 +27,20 @@ def toAscii(string):
 	return in_ascii
 
 
+def toOctal(string):
+	in_oct = ""
+	c = 0
+	for char in string:
+		c = ord(char)
+		octa = oct(c)
+		in_oct += ' ' + str(octa)
+	return in_oct
+
+
 def main():
 	if len(sys.argv[1:]) != 2:
-		print "format_convert: Convert to hex, ascii, decimal, or little-endian."
-		print "\nUsage: ./format_convert.py <string> <-2hex/-2ascii/-2dec/-2le>"
+		print "format_convert: Convert to hex, ascii, decimal, octal, or little-endian."
+		print "\nUsage: ./format_convert.py <string> <-2hex/-2ascii/-2dec/-2oct/-2le>"
 		print "Example: ./format_convert.py 41 -2ascii\n"
 		sys.exit(0)
 
@@ -52,6 +62,10 @@ def main():
 	elif mode == '-2dec':
 		in_dec = toDecimal(to_convert)
 		print 'Original:', to_convert, '\nDecimal:', in_dec
+
+	elif mode == '-2oct':
+		in_oct = toOctal(to_convert)
+		print 'Original:', to_convert, '\nOctal:', in_oct, '\n\n[!] Note: Remove any extra leading zeroes.'
 
 	elif mode == '-2le':
 		inpt = toAscii(to_convert)
