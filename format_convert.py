@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 # Converts to hex, ascii, decimal, or little-endian.
-# Jean Gonzalez, 12/01/2016
 
 import sys
 
@@ -37,11 +36,33 @@ def toOctal(string):
 	return in_oct
 
 
+def hexToBin(string):
+	in_hex = int(string, 16)
+	in_bin = bin(in_hex)[2:]
+	return in_bin
+
+
+def binToHex(string):
+	in_hex = hex(int(string, 2))
+	return in_hex
+
+
 def main():
 	if len(sys.argv[1:]) != 2:
-		print "format_convert: Convert to hex, ascii, decimal, octal, or little-endian."
-		print "\nUsage: ./format_convert.py <string> <-2hex/-2ascii/-2dec/-2oct/-2le>"
-		print "Example: ./format_convert.py 41 -2ascii\n"
+		print '''
+format_convert: Convert to hex, ascii, decimal, octal, binary, or little-endian.
+Usage: ./format_convert.py <string> <option>
+Example: ./format_convert.py 41 -2ascii
+
+Options:
+-2hex		: Ascii to hex
+-2ascii		: Hex to ascii
+-2dec		: To decimal
+-2oct		: To octal
+-2le		: Big endian to little endian
+-hex2bin	: Hex to binary
+-bin2hex	: Binary to hex
+		'''
 		sys.exit(0)
 
 	# Original input
@@ -73,10 +94,17 @@ def main():
 		in_LE = toLittleEndian(in_hex)
 		print 'Original:', '0x' + to_convert, '\nLittle-endian:', in_LE
 
+	elif mode == '-hex2bin':
+		in_bin = hexToBin(to_convert)
+		print 'Originial:', to_convert, '\nBinary:', in_bin
+
+	elif mode == '-bin2hex':
+		in_hex = binToHex(to_convert)
+		print in_hex
+
 	else:
 		print 'Improper format. Review and re-submit.\n'
 		sys.exit(0)
 
 
 main()
-	
