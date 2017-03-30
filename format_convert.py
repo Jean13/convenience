@@ -5,7 +5,7 @@
 import sys
 
 
-def toHex(string):
+def asctoHex(string):
 	in_hex = string.encode('hex')
 	return in_hex
 
@@ -47,6 +47,11 @@ def binToHex(string):
 	return in_hex
 
 
+def decToHex(number):
+	in_hex = hex(int(number))
+	return in_hex
+
+
 def main():
 	if len(sys.argv[1:]) != 2:
 		print '''
@@ -55,13 +60,14 @@ Usage: ./format_convert.py <string> <option>
 Example: ./format_convert.py 41 -2ascii
 
 Options:
--2hex		: Ascii to hex
+-asc2hex	: Ascii to hex
 -2ascii		: Hex to ascii
 -2dec		: To decimal
 -2oct		: To octal
 -2le		: Big endian to little endian
 -hex2bin	: Hex to binary
 -bin2hex	: Binary to hex
+-dec2hex	: Decimal to hex
 		'''
 		sys.exit(0)
 
@@ -70,8 +76,8 @@ Options:
 	mode = sys.argv[2]
 
 	# Conversion
-	if mode == '-2hex':
-		in_hex = toHex(to_convert)
+	if mode == '-asc2hex':
+		in_hex = asctoHex(to_convert)
 		little_endian = toLittleEndian(in_hex)
 		print 'Original:', to_convert, '\nHex:', '0x' + in_hex
 		print 'Little-endian:', little_endian
@@ -90,7 +96,7 @@ Options:
 
 	elif mode == '-2le':
 		inpt = toAscii(to_convert)
-		in_hex = toHex(inpt)
+		in_hex = asctoHex(inpt)
 		in_LE = toLittleEndian(in_hex)
 		print 'Original:', '0x' + to_convert, '\nLittle-endian:', in_LE
 
@@ -100,6 +106,10 @@ Options:
 
 	elif mode == '-bin2hex':
 		in_hex = binToHex(to_convert)
+		print in_hex
+
+	elif mode == '-dec2hex':
+		in_hex = decToHex(to_convert)
 		print in_hex
 
 	else:
