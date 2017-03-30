@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-# Converts to hex, ascii, decimal, or little-endian.
+# Converts to hex, ascii, decimal, octal, binary, or little-endian.
 
 import sys
 
